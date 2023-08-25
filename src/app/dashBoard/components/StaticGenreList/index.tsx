@@ -13,8 +13,8 @@ const GenreStaticList = () => {
             <AiOutlinePlayCircle className="text-5xl" />
           </button>
           <div className="text-white opacity-[100%]">
-            <p>Release Radar</p>
-            <span>LSLS</span>
+            <p className="font-bold text-2xl">Lançamentos</p>
+            <span>Atualizações todos os dias</span>
           </div>
         </div>
       </li>
@@ -29,8 +29,8 @@ const GenreStaticList = () => {
             <AiOutlinePlayCircle className="text-5xl" />
           </button>
           <div className="text-white opacity-[100%]">
-            <p>Release Radar</p>
-            <span>LSLS</span>
+            <p className="font-bold text-2xl">Mix Diário</p>
+            <span>Atualizações todos os dias</span>
           </div>
         </div>
       </li>
@@ -45,8 +45,8 @@ const GenreStaticList = () => {
             <AiOutlinePlayCircle className="text-5xl" />
           </button>
           <div className="text-white opacity-[100%]">
-            <p>Release Radar</p>
-            <span>LSLS</span>
+            <p className="font-bold text-2xl">Mais Curtidos</p>
+            <span>Atualizações todos os dias</span>
           </div>
         </div>
       </li>
@@ -61,8 +61,8 @@ const GenreStaticList = () => {
             <AiOutlinePlayCircle className="text-5xl" />
           </button>
           <div className="text-white opacity-[100%]">
-            <p>Release Radar</p>
-            <span>LSLS</span>
+            <p className="font-bold text-2xl">Pop</p>
+            <span>Atualizações todos os dias</span>
           </div>
         </div>
       </li>

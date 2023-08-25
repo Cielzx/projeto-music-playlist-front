@@ -6,7 +6,7 @@ import { SlPlaylist } from "react-icons/sl";
 import { RxGear } from "react-icons/rx";
 import GenreStaticList from "./components/StaticGenreList";
 import YourMusicList from "./components/YourMusicList";
-import { generosMusicais } from "./components/array";
+import { generosMusicais } from "./components/StaticGenreList/array";
 import ArtistList from "./components/ArtistsList";
 import api from "@/services/api";
 import { musicData } from "@/schemas/music.schema";
@@ -16,12 +16,15 @@ import UploadMusicModal from "./components/UploadModal/MusicModal";
 import UploadImageModal from "./components/UploadModal/ImageModal";
 
 const DashBoard = () => {
-  const { setMode, page, music } = useMusic();
+  const { setMode, page, music, getMusic } = useMusic();
   const { onOpen, onClose, isOpen } = useDisclosure();
 
-  const openFunction = () => {
-    setMode("music");
-    onOpen();
+  const handleGenre = (genre?: string) => {
+    if (genre) {
+      getMusic(genre);
+    }
+
+    getMusic();
   };
 
   if (!music) {
@@ -64,14 +67,21 @@ const DashBoard = () => {
             <h2 className="text-2xl">Generos</h2>
             <div className="flex flex-wrap gap-2 w-[100%]">
               {generosMusicais.map((genres) => (
-                <button key={genres.nome} className="btn-primary h-16">
+                <button
+                  key={genres.nome}
+                  onClick={() => handleGenre(genres.nome)}
+                  className="btn-primary h-16"
+                >
                   {genres.nome}
                 </button>
               ))}
             </div>
 
             <div className="w-full">
-              <button className="w-full h-16 bg-[#1A3B6B] text-2xl rounded-lg">
+              <button
+                onClick={() => handleGenre()}
+                className="w-full h-16 bg-[#1A3B6B] text-2xl rounded-lg"
+              >
                 Todos os gêneros
               </button>
             </div>
@@ -92,8 +102,8 @@ const DashBoard = () => {
                 </button>
               </div>
 
-              <div className="w-full h-[370px] ">
-                <YourMusicList />
+              <div className="w-full h-full ">
+                <YourMusicList music={music} />
               </div>
             </div>
           </div>

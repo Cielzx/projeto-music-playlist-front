@@ -1,16 +1,23 @@
 "use client";
-import { AiOutlinePlayCircle } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlinePlayCircle } from "react-icons/ai";
 import { useMusic } from "@/hook";
 import { useEffect, useRef } from "react";
 import { usePlayer } from "@/context/playerContext";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { TbMoodEmpty, TbPlayerPause, TbPlayerStop } from "react-icons/tb";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { musicData } from "@/schemas/music.schema";
 
-const YourMusicList = () => {
-  const { getMusic, music } = useMusic();
+interface MusicListProps {
+  music: musicData[];
+}
+
+const YourMusicList = ({ music }: MusicListProps) => {
+  console.log(music);
+  const { getMusic, deleteMusic } = useMusic();
   const { setCurrentMusic, currentMusic, setPlaylist } = usePlayer();
+  const pathname = usePathname();
   const router = useRouter();
   const playing = currentMusic.music_url;
 
@@ -24,7 +31,7 @@ const YourMusicList = () => {
   };
 
   return (
-    <ul className="flex flex-col  w-full gap-2 p-2 ">
+    <ul className="flex flex-col  w-full gap-2 p-2 overflow-auto">
       {music && music.length > 0 ? (
         <>
           {music.map((music) => (
@@ -47,7 +54,7 @@ const YourMusicList = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-end w-[20%] h-[20%]">
+                <div className="flex gap-2 justify-end w-[20%] h-[20%]">
                   {playing === music.music_url ? (
                     <button className="flex border items-center justify-center rounded-full w-10 h-10">
                       <TbPlayerPause className="text-3xl" />
@@ -59,6 +66,19 @@ const YourMusicList = () => {
                     >
                       <AiOutlinePlayCircle className="text-3xl" />
                     </button>
+                  )}
+
+                  {pathname === "/profile" ? (
+                    <>
+                      <button
+                        onClick={() => deleteMusic(music.id)}
+                        className="flex border items-center justify-center rounded-full w-10 h-10"
+                      >
+                        <AiOutlineDelete className="text-3xl" />
+                      </button>
+                    </>
+                  ) : (
+                    <></>
                   )}
                 </div>
               </div>

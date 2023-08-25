@@ -19,8 +19,6 @@ const LoginForm = () => {
     } else if (mode === "register") {
       registerFunction(data);
     }
-
-    reset();
   };
   return (
     <form

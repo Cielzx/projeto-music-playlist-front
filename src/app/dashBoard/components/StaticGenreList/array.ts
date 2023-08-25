@@ -74,4 +74,7 @@ export const generosMusicais = [
     descricao:
       "Estilo musical que preserva a tradição oral, contando histórias e temas culturais por meio de instrumentos acústicos.",
   },
+  {
+    nome: "Rap",
+  },
 ];

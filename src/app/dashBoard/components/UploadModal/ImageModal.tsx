@@ -17,6 +17,10 @@ const UploadImageModal = ({ isOpen, onClose }: modalProps) => {
     setCoverImage(files[0]);
   }, []);
 
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const dropzone = useDropzone({
     onDrop,
     accept: {
@@ -58,7 +62,10 @@ const UploadImageModal = ({ isOpen, onClose }: modalProps) => {
                     placeholder="heavy metal"
                     value={musicInfo.genre}
                     onChange={(e) => {
-                      setMusicInfo({ ...musicInfo, genre: e.target.value });
+                      setMusicInfo({
+                        ...musicInfo,
+                        genre: capitalizeFirstLetter(e.target.value),
+                      });
                     }}
                   />
                 </div>

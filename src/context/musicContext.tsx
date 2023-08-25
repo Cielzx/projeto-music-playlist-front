@@ -1,6 +1,7 @@
 "use client";
 import { musicData } from "@/schemas/music.schema";
 import api from "@/services/api";
+import Toast from "@/app/components/Toast";
 import { parseCookies } from "nookies";
 import {
   Dispatch,
@@ -15,7 +16,7 @@ interface musicProviderProp {
 }
 
 interface musicValues {
-  getMusic: () => void;
+  getMusic: (genre?: string) => void;
   getOneMusic: (id: string) => void;
   createMusic: () => Promise<void>;
   music: musicData[];
@@ -47,6 +48,7 @@ interface musicValues {
   mode: string;
   setMode: Dispatch<SetStateAction<string>>;
   oneMusic: musicData | undefined;
+  deleteMusic: (id: string) => void;
 }
 
 export const MusicContext = createContext<musicValues>({} as musicValues);
@@ -72,9 +74,14 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
     api.defaults.headers.common.authorization = `Bearer ${cookies["user.Token"]}`;
   }
 
-  const getMusic = async () => {
+  const getMusic = async (genre?: string) => {
     try {
-      const response = await api.get("music");
+      let url = "music";
+      if (genre) {
+        url += `?genre=${genre}`;
+      }
+
+      const response = await api.get(url);
       setMusic(response.data);
     } catch (error) {
       console.log(error);
@@ -112,10 +119,35 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
     try {
       const response = await api.post<musicData>("music", musicInfo);
       await uploadFiles(response.data.id, newMusic!, coverImage!);
+
+      Toast({
+        message: "Musica adicionada com sucesso",
+        isSucess: true,
+      });
+
       getMusic();
-      console.log(response.data);
     } catch (error) {
+      Toast({
+        message: "Algum erro ocorreu tente novamente",
+        isSucess: false,
+      });
       console.log(error);
+    }
+  };
+
+  const deleteMusic = async (id: string) => {
+    try {
+      const response = await api.delete(`music/${id}`);
+      Toast({
+        message: "Deletado com sucesso!",
+        isSucess: true,
+      });
+      getMusic();
+    } catch (error) {
+      Toast({
+        message: "Algo deu errado ao tentar deletar sua musica!",
+        isSucess: false,
+      });
     }
   };
 
@@ -138,6 +170,7 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
         createMusic,
         oneMusic,
         getOneMusic,
+        deleteMusic,
       }}
     >
       {children}

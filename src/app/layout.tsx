@@ -6,6 +6,8 @@ import Footer from "./components/Footer/Footer";
 import { AuthProvider } from "@/context/authContext";
 import { MusicProvider } from "@/context/musicContext";
 import { PlayerProvider } from "@/context/playerContext";
+import { UserProvider } from "@/context/userContext";
+import ToastProvider from "@/context/ToastContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +23,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
-          <MusicProvider>
-            <PlayerProvider>
-              <Header />
-              {children}
-              <Footer />
-            </PlayerProvider>
-          </MusicProvider>
-        </AuthProvider>
+      <body
+        className={inter.className}
+        style={{
+          boxSizing: "border-box",
+        }}
+      >
+        <ToastProvider>
+          <AuthProvider>
+            <UserProvider>
+              <MusicProvider>
+                <PlayerProvider>
+                  <Header />
+                  {children}
+                  <Footer />
+                </PlayerProvider>
+              </MusicProvider>
+            </UserProvider>
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   );
