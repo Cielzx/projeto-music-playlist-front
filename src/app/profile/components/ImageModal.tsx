@@ -42,12 +42,11 @@ const UploadProfileImageModal = ({ isOpen, onClose }: modalProps) => {
       MaxWidthHeader="100%"
       widthBody="45%"
       widthHeader="45%"
-      heightBody="70%"
     >
       {mode === "profile" ? (
         <div className="flex justify-center items-center w-full text-white">
           <div className="w-full">
-            <p className="text-4xl my-6 font-semibold text-center">
+            <p className="text-4xl my-6 font-semibold text-center max-[920px]:text-2xl">
               Alterar foto
             </p>
             <div className="w-full flex flex-row ">
@@ -61,10 +60,12 @@ const UploadProfileImageModal = ({ isOpen, onClose }: modalProps) => {
                 >
                   <div className="flex flex-col items-center pt-5 pb-6 w-full h-full gap-2">
                     <FaImage className="fill-gray-200 w-24 h-20 m-4" />
-                    <p className="text-3xl">Arrasta e solte a capa aqui</p>
-                    <p className="text-3xl mt-4">- OU -</p>
+                    <p className="text-3xl max-[920px]:text-xl">
+                      Arrasta e solte a capa aqui
+                    </p>
+                    <p className="text-3xl mt-4 max-[920px]:text-xl">- OU -</p>
                     <button
-                      className="user-form-button w-48 my-8"
+                      className="user-form-button w-48 my-8  max-[920px]:w-[70%] max-[920px]:text-xl"
                       onClick={(e) => e.preventDefault()}
                     >
                       Busque aqui
@@ -72,22 +73,23 @@ const UploadProfileImageModal = ({ isOpen, onClose }: modalProps) => {
                     <p className="text-lg italic font-gray-200">
                       Formatos suportados: jpg
                     </p>
+
+                    <div className=" w-[97%] flex items-center justify-end max-[920px]:justify-center">
+                      <div className="flex flex-row gap-2 ">
+                        <button
+                          className="user-form-button w-64 text-xl my-8"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            onSubFunction();
+                          }}
+                        >
+                          Atualizar perfil
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </label>
                 <input className="hidden" {...getInputProps()} />
-              </div>
-            </div>
-            <div className=" w-[97%] flex items-center justify-end">
-              <div className="flex flex-row gap-2 ">
-                <button
-                  className="user-form-button w-64 text-xl my-8"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onSubFunction();
-                  }}
-                >
-                  Atualizar perfil
-                </button>
               </div>
             </div>
           </div>

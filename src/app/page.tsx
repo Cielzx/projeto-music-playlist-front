@@ -6,9 +6,9 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex  min-h-screen  justify-center items-end backgroundImage">
-      <section className="flex justify-end justify-center">
-        <div>
+    <main className="flex  min-h-screen  justify-center items-end backgroundImage max-[920px]:items-center">
+      <section className="flex justify-end justify-center ">
+        <div className="max-[920px]:hidden">
           <Image
             src="/imageMusicHearing.png"
             alt="Homem ouvindo musica"
@@ -27,7 +27,7 @@ export default function Home() {
               href={"/login"}
               className="w-44 flex justify-center items-center rounded-md text-center text-3xl text-white h-14 bg-blue-500"
             >
-              Join Now
+              Entre agora
             </Link>
           </div>
         </div>

@@ -6,7 +6,7 @@ import Header from "../components/Header/Header";
 const discoverPage = () => {
   return (
     <main className="flex flex-col justify-center items-center min-h-screen  backgroundImage">
-      <section className="flex h-full justify-end p-4">
+      <section className="flex h-full justify-end p-4 max-[920px]:flex-col max-[920px]:gap-4">
         <div className="flex flex-col gap-7">
           <h1 className="text-white text-4xl ">Descubra novas musicas</h1>
 
@@ -30,7 +30,7 @@ const discoverPage = () => {
           </div>
         </div>
 
-        <div className="w-[600px] flex flex-wrap gap-2">
+        <div className="w-[70%] flex flex-wrap gap-2 max-[920px]:hidden">
           <img
             className="w-[250px] h-[250px]"
             src="https://i.pinimg.com/564x/39/c5/62/39c562d0c123ef4467e94fb13fb4fae3.jpg"

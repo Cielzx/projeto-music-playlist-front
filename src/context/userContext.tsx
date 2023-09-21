@@ -1,10 +1,18 @@
 "use client";
 import { musicData } from "@/schemas/music.schema";
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import jwt from "jsonwebtoken";
 import { parseCookies } from "nookies";
 import api from "@/services/api";
 import Toast from "@/app/components/Toast";
+import { useAuth } from "@/hook";
+import { usePathname } from "next/navigation";
 
 interface userProviderProp {
   children: React.ReactNode;
@@ -43,11 +51,14 @@ export const UserContext = createContext<userValues>({} as userValues);
 
 export const UserProvider = ({ children }: userProviderProp) => {
   const [user, setUser] = useState<userData>();
+  let [userId, setUserId] = useState("");
   const [mode, setMode] = useState("");
   const [description, setDescription] = useState("");
   const [profileImage, setProfileImage] = useState<File | null>(null);
 
-  const cookies = parseCookies();
+  let cookies = parseCookies();
+
+  let pathname = usePathname();
 
   if (cookies["user.Token"]) {
     api.defaults.headers.common.authorization = `Bearer ${cookies["user.Token"]}`;
@@ -64,6 +75,12 @@ export const UserProvider = ({ children }: userProviderProp) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    let decodedToken = jwt.decode(cookies["user.Token"]);
+    let id = decodedToken ? decodedToken.sub : null;
+    setUserId(id!);
+  }, [cookies["user.Token"]]);
 
   const updateDescription = async (data: userDescription) => {
     try {
@@ -103,6 +120,10 @@ export const UserProvider = ({ children }: userProviderProp) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getUser();
+  }, [pathname]);
 
   return (
     <UserContext.Provider

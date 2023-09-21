@@ -8,13 +8,13 @@ import "rc-slider/assets/index.css";
 import { TbMoodEmpty, TbPlayerPause, TbPlayerStop } from "react-icons/tb";
 import { usePathname, useRouter } from "next/navigation";
 import { musicData } from "@/schemas/music.schema";
+import Link from "next/link";
 
 interface MusicListProps {
   music: musicData[];
 }
 
 const YourMusicList = ({ music }: MusicListProps) => {
-  console.log(music);
   const { getMusic, deleteMusic } = useMusic();
   const { setCurrentMusic, currentMusic, setPlaylist } = usePlayer();
   const pathname = usePathname();
@@ -24,14 +24,14 @@ const YourMusicList = ({ music }: MusicListProps) => {
   useEffect(() => {
     setPlaylist(music);
     getMusic();
-  }, []);
+  }, [currentMusic]);
 
   const handleMusicId = (id: string) => {
     return router.push(`/dashBoard/${id}`);
   };
 
   return (
-    <ul className="flex flex-col  w-full gap-2 p-2 overflow-auto">
+    <ul className="flex flex-col w-full h-full gap-2 p-2 overflow-auto">
       {music && music.length > 0 ? (
         <>
           {music.map((music) => (
@@ -87,10 +87,14 @@ const YourMusicList = ({ music }: MusicListProps) => {
         </>
       ) : (
         <>
-          <div className="h-[350px] flex items-center justify-center flex-col gap-4">
-            <h2 className="text-5xl ">Sem músicas aqui...</h2>
+          <div className="h-[350px] flex items-center justify-center flex-col gap-4 ">
+            <h2 className="text-5xl max-[920px]:text-2xl ">
+              Sem músicas aqui...
+            </h2>
             <TbMoodEmpty className="text-9xl" />
-            <p className="text-4xl">Adicione novas musicas</p>
+            <p className="text-4xl max-[920px]:text-2xl">
+              Adicione novas musicas
+            </p>
           </div>
         </>
       )}

@@ -29,6 +29,7 @@ const secondsToMinutes = (sec: number | undefined) => {
 const Player = () => {
   const audioRef = useRef<HTMLAudioElement>();
   const { currentMusic, setCurrentMusic, playList } = usePlayer();
+  console.log(playList);
 
   useEffect(() => {
     audioRef.current = new Audio(currentMusic.music_url);
@@ -89,7 +90,7 @@ const Player = () => {
 
   return (
     <div className="fixed w-screen bottom-0 inset-x-0 h-20">
-      <div className="py-3 bg-blue-900/70   rounded-r-full text-gray-100">
+      <div className="py-3 bg-blue-900/70  text-gray-100">
         <div className="container flex">
           <div className="flex items-center lg:w-3/12 gap-2 ml-4">
             <div>
@@ -139,7 +140,7 @@ const Player = () => {
                 )}
               </button>
               {playList.length <= 1 ? (
-                <button className="disabled">
+                <button onClick={() => skipNext(currentMusic.music_url)}>
                   <TbPlayerSkipForward
                     size={20}
                     className="fill-gray-100 m-1"

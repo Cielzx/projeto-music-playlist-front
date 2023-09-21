@@ -27,6 +27,7 @@ export default function RootLayout({
         className={inter.className}
         style={{
           boxSizing: "border-box",
+          height: "100%",
         }}
       >
         <ToastProvider>

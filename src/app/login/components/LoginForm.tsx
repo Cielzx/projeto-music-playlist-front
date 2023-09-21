@@ -1,29 +1,33 @@
 "use client";
 import Input from "@/app/components/Input";
-import { useAuth } from "@/hook";
-import { useState } from "react";
+import { useAuth, useUser } from "@/hook";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { LoginData, RegisterData } from "./validator";
+import jwt from "jsonwebtoken";
+import { parseCookies } from "nookies";
 
 const LoginForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const [mode, setMode] = useState("login");
 
   const { loginFunction, registerFunction } = useAuth();
+  const { getUser } = useUser();
 
   const onSub = (data: any) => {
     console.log(data);
     if (mode === "login") {
       loginFunction(data);
+      getUser();
     } else if (mode === "register") {
       registerFunction(data);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSub)}
-      className="flex flex-col gap-4 w-[500px] h-[600px] justify-center  text-white font-bold bg-gray-100 p-9 bg-opacity-[50%]"
+      className="flex flex-col gap-4 w-[90%] h-[600px] justify-center  text-white font-bold bg-gray-100 p-9 bg-opacity-[50%]"
     >
       {mode === "register" ? (
         <>

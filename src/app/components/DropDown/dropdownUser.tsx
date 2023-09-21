@@ -45,68 +45,62 @@ const DropDown = () => {
 
   return (
     <>
-      <div className="w-[100px] flex items-center justify-end">
+      <div className="w-[10%] flex items-center justify-start max-[920px]:w-[16%]">
         <Menu>
-          {({ isOpen }) => (
-            <>
-              <MenuButton isActive={isOpen} as={Button}>
-                <div className="w-full h-full flex gap-3  items-center max-lg:h-0">
-                  <div className="w-16 h-16 bg-pink-400 text-4xl  rounded-full bg-gray-900">
-                    {user.profile_image ? (
-                      <img
-                        src={user.profile_image}
-                        className="rounded-full"
-                        alt=""
-                      />
-                    ) : (
-                      <p className="w-full h-full flex justify-center items-center  text-white">
-                        {initials}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* <span className="text-gray-700 font-semibold">
-                    {capitalizeFirstLetter(user.name)}
-                  </span> */}
+          <>
+            <MenuButton as={Button}>
+              <div className="w-full h-full flex gap-3   items-center">
+                <div className="w-16 h-16 bg-pink-400 text-4xl  rounded-full bg-gray-900 max-[920px]:w-14 max-[920px]:h-14">
+                  {user.profile_image ? (
+                    <img
+                      src={user.profile_image}
+                      className="rounded-full"
+                      alt=""
+                    />
+                  ) : (
+                    <p className="w-full h-full flex justify-center items-center  text-white">
+                      {initials}
+                    </p>
+                  )}
                 </div>
-              </MenuButton>
-              <MenuList
-                className=" shadow-xl transform translate-y-4"
-                style={{
-                  background: "white",
-                  padding: "5px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
-                  borderRadius: "10%",
-                  width: "100%",
-                  marginTop: "4px",
-                  paddingLeft: "40px",
-                  paddingRight: "40px",
-                  position: "relative",
-                  left: "14%",
-                }}
-              >
-                <div className="flex flex-col gap-2">
-                  <>
-                    <button
-                      onClick={() => router.push("/profile")}
-                      className="flex text-gray-400 text-base"
-                    >
-                      Meu perfil
-                    </button>
+              </div>
+            </MenuButton>
+            <MenuList
+              className=" shadow-xl transform translate-y-4"
+              style={{
+                background: "white",
+                padding: "5px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                borderRadius: "10%",
+                width: "100%",
+                marginTop: "4px",
+                paddingLeft: "40px",
+                paddingRight: "40px",
+                position: "relative",
+                right: "14%",
+              }}
+            >
+              <div className="flex flex-col gap-2">
+                <>
+                  <button
+                    onClick={() => router.push("/profile")}
+                    className="flex text-gray-400 text-base"
+                  >
+                    Meu perfil
+                  </button>
 
-                    <button
-                      onClick={() => handleLogout()}
-                      className="flex text-gray-400 text-base"
-                    >
-                      Sair
-                    </button>
-                  </>
-                </div>
-              </MenuList>
-            </>
-          )}
+                  <button
+                    onClick={() => handleLogout()}
+                    className="flex text-gray-400 text-base"
+                  >
+                    Sair
+                  </button>
+                </>
+              </div>
+            </MenuList>
+          </>
         </Menu>
       </div>
     </>

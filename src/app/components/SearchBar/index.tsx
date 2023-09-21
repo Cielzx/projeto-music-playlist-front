@@ -35,12 +35,12 @@ const SearchBar = ({ songs }: SearchProp) => {
   };
 
   return (
-    <>
-      <div className="w-[10%] flex justify-center h-full items-center text-white text-2xl gap-1">
+    <div className="flex w-[100%] max-[920px]:gap-2 items-center">
+      <div className="w-[10%] flex justify-center h-full items-center text-white text-2xl gap-1 max-[920px]:w-[15%]">
         <BsMusicNoteList className="text-4xl" />
       </div>
 
-      <div className="flex items-center border border-1 border-blue-400 rounded-full w-[80%] h-12 text-white  p-4 gap-2 bg-gradient-to-r from-blue-950 to-blue-900">
+      <div className="flex items-center border border-1 border-blue-400 rounded-full w-[88%] h-12 text-white  p-4 gap-2 bg-gradient-to-r from-blue-950 to-blue-900 max-[920px]:w-[80%]">
         <div>
           <AiOutlineSearch className="text-3xl" />
         </div>
@@ -80,7 +80,7 @@ const SearchBar = ({ songs }: SearchProp) => {
           <></>
         )}
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 max-[920px]:hidden">
           <div className="w-20 h-8 bg-opacity-0 border border-1 border-blue-300 rounded-lg flex justify-center items-center">
             <span className="">Minimal</span>
           </div>
@@ -92,12 +92,12 @@ const SearchBar = ({ songs }: SearchProp) => {
           </div>
         </div>
 
-        <button className="flex gap-2 justify-center items-center h-full">
+        {/* <button className="flex gap-2 justify-center items-center h-full">
           <BsFilterLeft className="text-3xl" />
           Filters
-        </button>
+        </button> */}
       </div>
-    </>
+    </div>
   );
 };
 
