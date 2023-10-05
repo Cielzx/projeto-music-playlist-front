@@ -23,11 +23,11 @@ const ArtistList = () => {
   return (
     <ul className="w-[320px] flex flex-wrap  gap-6 p-2">
       {Object.values(artitst).map((music) => (
-        <li key={music.id} className="w-[120px] h-[120px]">
+        <li key={music.id} className="w-[140px] h-[120px]">
           <div className="w-full h-full">
             <img
               src={music.cover_image}
-              className="w-full h-full rounded-md"
+              className="w-full h-full rounded-md object-cover"
               alt=""
             />
           </div>

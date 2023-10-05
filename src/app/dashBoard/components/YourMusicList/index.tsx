@@ -15,7 +15,7 @@ interface MusicListProps {
 }
 
 const YourMusicList = ({ music }: MusicListProps) => {
-  const { getMusic, deleteMusic } = useMusic();
+  const { getMusic, deleteMusic, createHistoric } = useMusic();
   const { setCurrentMusic, currentMusic, setPlaylist } = usePlayer();
   const pathname = usePathname();
   const router = useRouter();
@@ -43,7 +43,7 @@ const YourMusicList = ({ music }: MusicListProps) => {
                 >
                   <div className="w-[80px] h-[80px] bg-contain">
                     <img
-                      className="w-full h-full rounded-md "
+                      className="w-full h-full rounded-md object-cover "
                       src={music.cover_image}
                       alt=""
                     />
@@ -55,13 +55,26 @@ const YourMusicList = ({ music }: MusicListProps) => {
                 </div>
 
                 <div className="flex gap-2 justify-end w-[20%] h-[20%]">
-                  {playing === music.music_url ? (
-                    <button className="flex border items-center justify-center rounded-full w-10 h-10">
+                  {playing === music.music_url &&
+                  currentMusic.isPlaying !== false ? (
+                    <button
+                      // onClick={() => setCurrentMusic(music, false)}
+                      className="flex border items-center justify-center rounded-full w-10 h-10"
+                    >
                       <TbPlayerPause className="text-3xl" />
                     </button>
                   ) : (
                     <button
-                      onClick={() => setCurrentMusic(music, true)}
+                      onClick={() => {
+                        setCurrentMusic(music, true),
+                          createHistoric({
+                            id: music.id,
+                            music_name: music.name,
+                            artist: music.artist,
+                            cover_image: music.cover_image,
+                            music_url: music.music_url,
+                          });
+                      }}
                       className="flex border items-center justify-center rounded-full w-10 h-10"
                     >
                       <AiOutlinePlayCircle className="text-3xl" />

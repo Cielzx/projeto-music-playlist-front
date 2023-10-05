@@ -54,7 +54,7 @@ const DropDown = () => {
                   {user.profile_image ? (
                     <img
                       src={user.profile_image}
-                      className="rounded-full"
+                      className="rounded-full object-cover"
                       alt=""
                     />
                   ) : (

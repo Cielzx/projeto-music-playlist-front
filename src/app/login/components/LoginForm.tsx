@@ -27,7 +27,7 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSub)}
-      className="flex flex-col gap-4 w-[90%] h-[600px] justify-center  text-white font-bold bg-gray-100 p-9 bg-opacity-[50%]"
+      className="flex flex-col gap-4 w-[70%] h-[600px] justify-center  text-white font-bold bg-gray-100 p-9 bg-opacity-[50%]"
     >
       {mode === "register" ? (
         <>

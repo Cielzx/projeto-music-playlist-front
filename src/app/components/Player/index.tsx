@@ -12,6 +12,7 @@ import {
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import Image from "next/image";
 import { usePlayer } from "@/context/playerContext";
+import { useMusic } from "@/hook";
 
 const secondsToMinutes = (sec: number | undefined) => {
   if (!sec) return "00:00";
@@ -29,7 +30,6 @@ const secondsToMinutes = (sec: number | undefined) => {
 const Player = () => {
   const audioRef = useRef<HTMLAudioElement>();
   const { currentMusic, setCurrentMusic, playList } = usePlayer();
-  console.log(playList);
 
   useEffect(() => {
     audioRef.current = new Audio(currentMusic.music_url);

@@ -42,8 +42,8 @@ const UploadMusicModal = ({ isOpen, onClose }: modalProps) => {
               <div className=" bg-blue-400 w-5 h-5 m-1 rounded-full"></div>
               <div className=" bg-gray-400 w-5 h-5 m-1 rounded-full"></div>
             </div>
-            <div className="flex flex-row w-full">
-              <div className=" flex flex-col w-[648px] min-h-[410px] bg-blue-900 rounded-lg border-dashed border-2 border-gray-400 max-[920px]:w-[100%]">
+            <div className="flex flex-row w-full justify-center">
+              <div className=" flex flex-col w-[648px] h-[410px] bg-blue-900 rounded-lg border-dashed border-2 border-gray-400 max-[920px]:w-[100%]">
                 <label
                   htmlFor="dropzone-file"
                   className="cursor-pointer w-full h-full"
@@ -84,7 +84,7 @@ const UploadMusicModal = ({ isOpen, onClose }: modalProps) => {
                 </label>
                 <input className="hidden" {...getInputProps()} />
               </div>
-              <div className="w-[50%] min-h-[410px] justify-center">
+              <div className="w-[50%] h-[410px] justify-center">
                 <div className="pl-6">
                   <label htmlFor="name" className="user-form-label">
                     Nome

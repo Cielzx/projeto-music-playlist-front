@@ -3,6 +3,7 @@ import { musicData } from "@/schemas/music.schema";
 import api from "@/services/api";
 import Toast from "@/app/components/Toast";
 import { parseCookies } from "nookies";
+import jwt from "jsonwebtoken";
 import {
   Dispatch,
   SetStateAction,
@@ -15,12 +16,24 @@ interface musicProviderProp {
   children: React.ReactNode;
 }
 
+interface HistoricData {
+  id: string;
+  music_name: string;
+  artist: string;
+  cover_image: string;
+  music_url: string;
+}
+
 interface musicValues {
   getMusic: (genre?: string) => void;
   getOneMusic: (id: string) => void;
+  getUserHistoric: () => void;
+  deleteHistoric: (id: string) => void;
   createMusic: () => Promise<void>;
   music: musicData[];
   setMusic: Dispatch<SetStateAction<musicData[]>>;
+  historic: HistoricData[];
+  setHistoric: Dispatch<SetStateAction<HistoricData[]>>;
   musicInfo: {
     name: string;
     artist: string;
@@ -48,6 +61,7 @@ interface musicValues {
   mode: string;
   setMode: Dispatch<SetStateAction<string>>;
   oneMusic: musicData | undefined;
+  createHistoric: (data: HistoricData) => Promise<void>;
   deleteMusic: (id: string) => void;
 }
 
@@ -55,6 +69,7 @@ export const MusicContext = createContext<musicValues>({} as musicValues);
 
 export const MusicProvider = ({ children }: musicProviderProp) => {
   const [music, setMusic] = useState<musicData[]>([]);
+  const [historic, setHistoric] = useState<HistoricData[]>([]);
   const [oneMusic, setOneMusic] = useState<musicData | undefined>();
   const [newMusic, setNewMusic] = useState<File | null>(null);
   const [coverImage, setCoverImage] = useState<File | null>(null);
@@ -151,6 +166,36 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
     }
   };
 
+  const getUserHistoric = async () => {
+    try {
+      const decodedToken = jwt.decode(cookies["user.Token"]);
+
+      const id = decodedToken ? decodedToken.sub : null;
+
+      const response = await api.get(`historic/${id}`);
+      setHistoric(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteHistoric = async (id: string) => {
+    try {
+      const response = api.delete(`historic/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createHistoric = async (data: HistoricData) => {
+    try {
+      const response = await api.post(`historic`, data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <MusicContext.Provider
       value={{
@@ -171,6 +216,11 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
         oneMusic,
         getOneMusic,
         deleteMusic,
+        createHistoric,
+        historic,
+        setHistoric,
+        getUserHistoric,
+        deleteHistoric,
       }}
     >
       {children}

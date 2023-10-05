@@ -17,6 +17,7 @@ import UploadImageModal from "./components/UploadModal/ImageModal";
 import { useRouter } from "next/navigation";
 import Container from "../components/Container/container";
 import DropDown from "../components/DropDown/dropdownUser";
+import Historic from "./components/Historic";
 
 const DashBoard = () => {
   const { setMode, page, music, getMusic, mode } = useMusic();
@@ -47,7 +48,10 @@ const DashBoard = () => {
         <section className="w-[90%] h-[40%] flex gap-12 max-[920px]:flex-col">
           <div className="w-[120px] flex flex-col items-center gap-10 text-white text-5xl max-[920px]:flex-row max-[920px]:mt-4 max-[920px]:w-full max-[920px]:justify-around max-[920px]:gap-4">
             <button>
-              <GoHome className="text-white fill-white max-[920px]:w-[36px]" />
+              <GoHome
+                onClick={() => setMode("")}
+                className="text-white fill-white max-[920px]:w-[36px]"
+              />
             </button>
 
             <button>
@@ -59,7 +63,10 @@ const DashBoard = () => {
             </button>
 
             <button>
-              <MdOutlineWatchLater className="text-white fill-white max-[920px]:w-[36px]" />
+              <MdOutlineWatchLater
+                onClick={() => setMode("historic")}
+                className="text-white fill-white max-[920px]:w-[36px]"
+              />
             </button>
 
             <button onClick={() => router.push("/profile")}>
@@ -67,8 +74,16 @@ const DashBoard = () => {
             </button>
           </div>
 
-          <div className="w-full p-2">
-            <GenreStaticList />
+          <div className="w-full ">
+            {mode === "historic" ? (
+              <>
+                <Historic />
+              </>
+            ) : (
+              <>
+                <GenreStaticList />
+              </>
+            )}
           </div>
         </section>
 
@@ -112,7 +127,7 @@ const DashBoard = () => {
                   )}
                 </div>
 
-                <div className="w-full">
+                <div className="w-full h-[82%]">
                   {mode === "yourMusic" ? (
                     <>
                       <div className="flex flex-row justify-center mb-6">
