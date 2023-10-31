@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const ArtistList = () => {
   const { getMusic, music } = useMusic();
-  const [artitst, setArtists] = useState(new Set());
+  const [artist, setArtists] = useState(new Set());
 
   useEffect(() => {
     const songs: any = {};
@@ -21,9 +21,9 @@ const ArtistList = () => {
   }, [music]);
 
   return (
-    <ul className="w-[320px] flex flex-wrap  gap-6 p-2">
-      {Object.values(artitst).map((music) => (
-        <li key={music.id} className="w-[140px] h-[120px]">
+    <ul className="w-[100%] flex flex-wrap  gap-6 p-2">
+      {Object.values(artist).map((music) => (
+        <li key={music.id} className="w-[140px] h-[120px] max-lg:w-[40%]">
           <div className="w-full h-full">
             <img
               src={music.cover_image}

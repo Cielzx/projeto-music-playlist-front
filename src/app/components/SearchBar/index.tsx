@@ -36,7 +36,10 @@ const SearchBar = ({ songs }: SearchProp) => {
 
   return (
     <div className="flex w-[100%] max-[920px]:gap-2 items-center">
-      <div className="w-[10%] flex justify-center h-full items-center text-white text-2xl gap-1 max-[920px]:w-[15%]">
+      <div
+        className="w-[10%] flex justify-center h-full items-center cursor-pointer text-white text-2xl gap-1 max-[920px]:w-[15%]"
+        onClick={() => router.push("/dashBoard")}
+      >
         <BsMusicNoteList className="text-4xl" />
       </div>
 

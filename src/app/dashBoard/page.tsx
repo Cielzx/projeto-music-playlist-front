@@ -16,8 +16,8 @@ import UploadMusicModal from "./components/UploadModal/MusicModal";
 import UploadImageModal from "./components/UploadModal/ImageModal";
 import { useRouter } from "next/navigation";
 import Container from "../components/Container/container";
-import DropDown from "../components/DropDown/dropdownUser";
 import Historic from "./components/Historic";
+import Loading from "../components/Loading";
 
 const DashBoard = () => {
   const { setMode, page, music, getMusic, mode } = useMusic();
@@ -39,14 +39,14 @@ const DashBoard = () => {
   }
 
   if (!user) {
-    return <p>Carregando...</p>;
+    return <Loading />;
   }
 
   return (
     <main className="flex flex-col  items-center backgroundDash p-2">
       <Container>
         <section className="w-[90%] h-[40%] flex gap-12 max-[920px]:flex-col">
-          <div className="w-[120px] flex flex-col items-center gap-10 text-white text-5xl max-[920px]:flex-row max-[920px]:mt-4 max-[920px]:w-full max-[920px]:justify-around max-[920px]:gap-4">
+          <div className="w-[120px] flex flex-col items-center gap-10 text-white text-5xl max-[920px]:flex-row max-[920px]:mt-4 max-[920px]:w-full max-[920px]:justify-around max-[920px]:gap-4 hidden">
             <button>
               <GoHome
                 onClick={() => setMode("")}
@@ -96,7 +96,7 @@ const DashBoard = () => {
                   <button
                     key={genres.nome}
                     onClick={() => handleGenre(genres.nome)}
-                    className="btn-primary h-16"
+                    className="btn-primary w-[30%] text-base h-16 max-lg:text-sm truncate"
                   >
                     {genres.nome}
                   </button>
@@ -155,7 +155,7 @@ const DashBoard = () => {
               </div>
             </div>
 
-            <div className="w-[20%]">
+            <div className="w-[30%] max-[920px]:w-[80%]">
               <h2 className="text-2xl">Artistas</h2>
               <ArtistList />
             </div>
