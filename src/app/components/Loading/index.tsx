@@ -1,4 +1,3 @@
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
 
 const Loading = () => {

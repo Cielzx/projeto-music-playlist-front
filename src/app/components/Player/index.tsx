@@ -9,10 +9,10 @@ import {
   TbPlayerSkipForward,
   TbPlayerStop,
 } from "react-icons/tb";
+import $ from "jquery";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import Image from "next/image";
 import { usePlayer } from "@/context/playerContext";
-import { useMusic } from "@/hook";
 
 const secondsToMinutes = (sec: number | undefined) => {
   if (!sec) return "00:00";
@@ -63,10 +63,17 @@ const Player = () => {
       });
     });
 
+    console.log(playList);
+
     return () => {
       audioRef.current?.pause();
     };
   }, [currentMusic.music_url]);
+
+  // $("#music-bar").on("click", function () {
+  //   console.log("testando jquery");
+  //   // $(this).hide();
+  // });
 
   const skipNext = (music_url: string) => {
     const musicIndex = playList.findIndex((m) => m.music_url === music_url);
@@ -90,7 +97,7 @@ const Player = () => {
 
   return (
     <div className="fixed w-screen bottom-0 inset-x-0 h-20">
-      <div className="py-3 bg-blue-900/70  text-gray-100">
+      <div id="music-bar" className="py-3 bg-blue-900/70  text-gray-100">
         <div className="container flex">
           <div className="flex items-center lg:w-3/12 gap-2 ml-4">
             <div>

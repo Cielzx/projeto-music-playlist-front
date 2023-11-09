@@ -6,6 +6,7 @@ import { useMusic } from "@/hook";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Loading from "@/app/components/Loading";
+import Historic from "@/app/dashBoard/components/Historic";
 
 const playlistPage = ({ params }: { params: { genre: string } }) => {
   const { music, getMusic } = useMusic();
@@ -61,7 +62,9 @@ const playlistPage = ({ params }: { params: { genre: string } }) => {
               </div>
             </div>
             <ul className="flex flex-col w-full gap-2 p-2">
-              <PlaylistCard genre={params.genre} />
+              <>
+                <PlaylistCard genre={params.genre} />
+              </>
             </ul>
           </div>
         </section>

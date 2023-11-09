@@ -27,7 +27,7 @@ const GenreStaticList = () => {
       id: 2,
       image_url:
         "https://img.freepik.com/fotos-gratis/mulher-caucasiana-feliz-ouvindo-musica-com-fones-de-ouvido-se-divertindo-em-pe-no-fundo-rosa-morena-fechou-os-olhos-e-segurou-o-telefone-nas-maos_197531-30195.jpg?w=740&t=st=1689784336~exp=1689784936~hmac=3304e40df4b435a12622dc497edf3803edc7a9ae16bd5aa6627e08b12a14944d",
-      name: "Mix diario",
+      name: "Historico",
     },
     {
       id: 3,

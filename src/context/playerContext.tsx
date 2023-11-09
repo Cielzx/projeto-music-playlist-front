@@ -3,16 +3,17 @@ import Player from "@/app/components/Player";
 import { CurrentMusicType, musicData } from "@/schemas/music.schema";
 
 import { ReactNode, createContext, useContext, useState } from "react";
+import { HistoricData } from "./musicContext";
 
 interface Props {
   children: ReactNode;
 }
 
 interface PlayerProviderData {
-  currentMusic: CurrentMusicType;
+  currentMusic: CurrentMusicType | HistoricData;
   setCurrentMusic: (cm: Partial<CurrentMusicType>, replace?: boolean) => void;
-  playList: musicData[];
-  setPlaylist: (data: musicData[]) => void;
+  playList: musicData[] | HistoricData[];
+  setPlaylist: (data: musicData[] | HistoricData[]) => void;
 }
 
 const defaultMusic: CurrentMusicType = {
@@ -32,15 +33,17 @@ const PlayerContext = createContext<PlayerProviderData>(
 );
 
 export const PlayerProvider = ({ children }: Props) => {
-  const [musics, setMusics] = useState<musicData[]>([]);
-  const [current, setCurrent] = useState<CurrentMusicType>(defaultMusic);
+  const [musics, setMusics] = useState<musicData[] | HistoricData[]>([]);
+  const [current, setCurrent] = useState<CurrentMusicType | HistoricData>(
+    defaultMusic
+  );
 
   const setCurrentMusic = (
-    music: Partial<CurrentMusicType>,
+    music: Partial<CurrentMusicType | HistoricData>,
     replace = false
   ) => {
     if (replace && music.music_url !== current.music_url) {
-      setCurrent(music as CurrentMusicType);
+      setCurrent(music as CurrentMusicType | HistoricData);
     } else {
       setCurrent((prev) => ({ ...prev, ...music }));
     }

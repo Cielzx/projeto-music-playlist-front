@@ -18,9 +18,12 @@ import { useRouter } from "next/navigation";
 import Container from "../components/Container/container";
 import Historic from "./components/Historic";
 import Loading from "../components/Loading";
+import { useEffect } from "react";
+import { usePlayer } from "@/context/playerContext";
 
 const DashBoard = () => {
   const { setMode, page, music, getMusic, mode } = useMusic();
+  const { setPlaylist } = usePlayer();
   const { user, getUser } = useUser();
   const { onOpen, onClose, isOpen } = useDisclosure();
 
@@ -30,7 +33,6 @@ const DashBoard = () => {
     if (genre) {
       getMusic(genre);
     }
-
     getMusic();
   };
 
@@ -41,6 +43,10 @@ const DashBoard = () => {
   if (!user) {
     return <Loading />;
   }
+
+  // useEffect(() => {
+  //   getMusic();
+  // }, [user]);
 
   return (
     <main className="flex flex-col  items-center backgroundDash p-2">

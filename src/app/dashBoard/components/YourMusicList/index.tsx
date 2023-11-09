@@ -6,9 +6,9 @@ import { usePlayer } from "@/context/playerContext";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { TbMoodEmpty, TbPlayerPause, TbPlayerStop } from "react-icons/tb";
+import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import { usePathname, useRouter } from "next/navigation";
 import { musicData } from "@/schemas/music.schema";
-import Link from "next/link";
 
 interface MusicListProps {
   music: musicData[];
@@ -20,11 +20,13 @@ const YourMusicList = ({ music }: MusicListProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const playing = currentMusic.music_url;
+  const audioRef = useRef<HTMLAudioElement>();
 
   useEffect(() => {
     setPlaylist(music);
+
     getMusic();
-  }, [currentMusic]);
+  }, []);
 
   const handleMusicId = (id: string) => {
     return router.push(`/dashBoard/${id}`);
@@ -35,12 +37,23 @@ const YourMusicList = ({ music }: MusicListProps) => {
       {music && music.length > 0 ? (
         <>
           {music.map((music) => (
-            <li key={music.id} className="w-full flex items-center ">
-              <div className="w-full flex justify-between items-center   text-xl gap-4">
-                <div
-                  onClick={() => handleMusicId(music.id)}
-                  className="flex items-center cursor-pointer gap-2"
-                >
+            <li
+              key={music.id}
+              className="w-full flex items-center cursor-pointer"
+              onClick={() => {
+                setCurrentMusic(music, true),
+                  createHistoric({
+                    id: music.id,
+                    music_name: music.name,
+                    artist: music.artist,
+                    cover_image: music.cover_image,
+                    music_url: music.music_url,
+                    isPlaying: false,
+                  });
+              }}
+            >
+              <div className="w-full flex justify-between items-center text-xl gap-4">
+                <div className="flex items-center cursor-pointer gap-2">
                   <div className="w-[80px] h-[80px] bg-contain">
                     <img
                       className="w-full h-full rounded-md object-cover "
@@ -48,17 +61,38 @@ const YourMusicList = ({ music }: MusicListProps) => {
                       alt=""
                     />
                   </div>
-                  <div>
-                    <p>{music.name}</p>
-                    <p>{music.artist}</p>
-                  </div>
+
+                  {currentMusic.isPlaying &&
+                  currentMusic.music_url === music.music_url ? (
+                    <>
+                      <div>
+                        <p className="text-blue-600 font-semibold">
+                          {music.name}
+                        </p>
+                        <p>{music.artist}</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div>
+                        <p>{music.name}</p>
+                        <p>{music.artist}</p>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="flex gap-2 justify-end w-[20%] h-[20%]">
-                  {playing === music.music_url &&
+                  <button
+                    onClick={() => handleMusicId(music.id)}
+                    className="flex items-center justify-center rounded-full w-10 h-10"
+                  >
+                    <PiDotsThreeOutlineLight className="text-3xl" />
+                  </button>
+                  {/* {playing === music.music_url &&
                   currentMusic.isPlaying !== false ? (
                     <button
-                      // onClick={() => setCurrentMusic(music, false)}
+                      // onClick={() => setCurrentMusic({ isPlaying: false })}
                       className="flex border items-center justify-center rounded-full w-10 h-10"
                     >
                       <TbPlayerPause className="text-3xl" />
@@ -73,13 +107,14 @@ const YourMusicList = ({ music }: MusicListProps) => {
                             artist: music.artist,
                             cover_image: music.cover_image,
                             music_url: music.music_url,
+                            isPlaying: false,
                           });
                       }}
                       className="flex border items-center justify-center rounded-full w-10 h-10"
                     >
                       <AiOutlinePlayCircle className="text-3xl" />
                     </button>
-                  )}
+                  )} */}
 
                   {pathname === "/profile" ? (
                     <>

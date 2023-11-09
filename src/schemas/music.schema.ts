@@ -1,3 +1,4 @@
+import { HistoricData } from "@/context/musicContext";
 import { z } from "zod";
 
 export const musicSchema = z.object({
@@ -14,6 +15,12 @@ export const musicSchema = z.object({
 export type musicData = z.infer<typeof musicSchema>;
 
 export interface CurrentMusicType extends musicData {
+  duration?: number;
+  curTime?: number;
+  isPlaying?: boolean;
+}
+
+export interface CurrentHistoricType extends HistoricData {
   duration?: number;
   curTime?: number;
   isPlaying?: boolean;

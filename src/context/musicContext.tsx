@@ -16,12 +16,13 @@ interface musicProviderProp {
   children: React.ReactNode;
 }
 
-interface HistoricData {
+export interface HistoricData {
   id: string;
   music_name: string;
   artist: string;
   cover_image: string;
   music_url: string;
+  isPlaying?: boolean | false;
 }
 
 interface musicValues {
