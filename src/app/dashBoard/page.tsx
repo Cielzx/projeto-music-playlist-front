@@ -122,46 +122,27 @@ const DashBoard = () => {
             <div className="w-[45%] max-[920px]:w-full">
               <div className="h-[590px] flex flex-col border rounded-lg  border-[#03327D] p-2">
                 <div className="w-full flex justify-between">
-                  {mode === "yourMusic" ? (
-                    <>
-                      <h2 className="text-2xl">Escute as suas músicas</h2>
-                    </>
-                  ) : (
-                    <>
-                      <h2 className="text-2xl">Musicas disponiveis</h2>
-                    </>
-                  )}
+                  <>
+                    <h2 className="text-2xl">Musicas disponiveis</h2>
+                  </>
                 </div>
 
-                <div className="w-full h-[82%]">
-                  {mode === "yourMusic" ? (
-                    <>
-                      <div className="flex flex-row justify-center mb-6">
-                        <div className=" bg-blue-400 w-5 h-5 m-1 rounded-full"></div>
-                        <div
-                          onClick={() => setMode("")}
-                          className=" bg-gray-400 w-5 h-5 m-1 rounded-full cursor-pointer"
-                        ></div>
-                      </div>
-                      <YourMusicList music={user.music} />
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex flex-row justify-center mb-6">
-                        <div
-                          onClick={() => setMode("yourMusic")}
-                          className=" bg-gray-400 w-5 h-5 m-1 rounded-full cursor-pointer"
-                        ></div>
-                        <div className=" bg-blue-400 w-5 h-5 m-1 rounded-full"></div>
-                      </div>
-                      <YourMusicList music={music} />
-                    </>
-                  )}
+                <div className="w-full h-[90%]">
+                  <>
+                    {/* <div className="flex flex-row justify-center mb-6">
+                      <div
+                        onClick={() => setMode("yourMusic")}
+                        className=" bg-gray-400 w-5 h-5 m-1 rounded-full cursor-pointer"
+                      ></div>
+                      <div className=" bg-blue-400 w-5 h-5 m-1 rounded-full"></div>
+                    </div> */}
+                    <YourMusicList music={music} />
+                  </>
                 </div>
               </div>
             </div>
 
-            <div className="w-[30%] max-[920px]:w-[80%]">
+            <div className="w-[30%] max-[920px]:w-[116%]">
               <h2 className="text-2xl">Artistas</h2>
               <ArtistList />
             </div>

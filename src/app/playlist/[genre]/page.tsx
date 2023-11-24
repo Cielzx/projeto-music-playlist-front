@@ -10,7 +10,7 @@ import Historic from "@/app/dashBoard/components/Historic";
 
 const playlistPage = ({ params }: { params: { genre: string } }) => {
   const { music, getMusic } = useMusic();
-  const [currentMusic, setCurrentMusic] = useState<musicData>();
+  const [currentPlaylitMusic, setCurrentPlaylitMusic] = useState<musicData>();
   const pathname = usePathname();
   const selectRandomMusic = () => {
     const randomIndex = Math.floor(Math.random() * music.length);
@@ -21,10 +21,10 @@ const playlistPage = ({ params }: { params: { genre: string } }) => {
   useEffect(() => {
     getMusic(params.genre);
 
-    music.map((item) => setCurrentMusic(item));
+    music.map((item) => setCurrentPlaylitMusic(item));
   }, [music]);
 
-  if (!currentMusic) {
+  if (!currentPlaylitMusic) {
     return (
       <>
         <Loading />
@@ -39,12 +39,22 @@ const playlistPage = ({ params }: { params: { genre: string } }) => {
           <div
             className="flex flex-col justify-end gap-4 h-[50%] p-2 rounded-md bg-no-repeat bg-center bg-cover"
             style={{
-              backgroundImage: `url(${currentMusic.cover_image})`,
+              backgroundImage: `url(${currentPlaylitMusic.cover_image})`,
             }}
           >
-            <h2 className="text-5xl">{currentMusic.genre}</h2>
+            {pathname === "/playlist/Historico" ? (
+              <h2 className="text-5xl">Histórico</h2>
+            ) : (
+              <h2 className="text-5xl">{currentPlaylitMusic.genre}</h2>
+            )}
 
-            <span className="text-3xl">Os melhores você encontra aqui</span>
+            {pathname === "/playlist/Historico" ? (
+              <span className="text-3xl">
+                Aqui estão suas musicas já escutadas
+              </span>
+            ) : (
+              <span className="text-3xl">Os melhores você encontra aqui</span>
+            )}
           </div>
 
           <div className="flex flex-col w-full gap-2 p-2">

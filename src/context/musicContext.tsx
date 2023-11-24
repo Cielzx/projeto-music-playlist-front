@@ -182,7 +182,8 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
 
   const deleteHistoric = async (id: string) => {
     try {
-      const response = api.delete(`historic/${id}`);
+      const response = await api.delete(`historic/${id}`);
+      getUserHistoric();
     } catch (error) {
       console.log(error);
     }

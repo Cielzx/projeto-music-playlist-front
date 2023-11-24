@@ -1,6 +1,10 @@
 "use client";
 import Player from "@/app/components/Player";
-import { CurrentMusicType, musicData } from "@/schemas/music.schema";
+import {
+  CurrentHistoricType,
+  CurrentMusicType,
+  musicData,
+} from "@/schemas/music.schema";
 
 import { ReactNode, createContext, useContext, useState } from "react";
 import { HistoricData } from "./musicContext";
@@ -25,6 +29,15 @@ const defaultMusic: CurrentMusicType = {
   genre: "",
   music_url: "",
   year: "",
+  isPlaying: false,
+};
+
+const defaultHistoricMusic: CurrentHistoricType = {
+  id: "Historic",
+  cover_image: "",
+  music_name: "",
+  artist: "",
+  music_url: "",
   isPlaying: false,
 };
 

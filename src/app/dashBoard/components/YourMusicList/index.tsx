@@ -53,7 +53,7 @@ const YourMusicList = ({ music }: MusicListProps) => {
               }}
             >
               <div className="w-full flex justify-between items-center text-xl gap-4">
-                <div className="flex items-center cursor-pointer gap-2">
+                <div className="flex items-center cursor-pointer gap-2 max-[920px]:w-[70%]">
                   <div className="w-[80px] h-[80px] bg-contain">
                     <img
                       className="w-full h-full rounded-md object-cover "
@@ -65,8 +65,8 @@ const YourMusicList = ({ music }: MusicListProps) => {
                   {currentMusic.isPlaying &&
                   currentMusic.music_url === music.music_url ? (
                     <>
-                      <div>
-                        <p className="text-blue-600 font-semibold">
+                      <div className="max-[920px]:truncate">
+                        <p className="text-blue-600 font-semibold max-[920px]:text-xs">
                           {music.name}
                         </p>
                         <p>{music.artist}</p>
@@ -74,9 +74,9 @@ const YourMusicList = ({ music }: MusicListProps) => {
                     </>
                   ) : (
                     <>
-                      <div>
-                        <p>{music.name}</p>
-                        <p>{music.artist}</p>
+                      <div className="max-[920px]:truncate">
+                        <p className="max-[920px]:text-xs">{music.name}</p>
+                        <p className="max-[920px]:text-xs">{music.artist}</p>
                       </div>
                     </>
                   )}

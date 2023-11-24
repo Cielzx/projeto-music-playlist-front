@@ -21,7 +21,7 @@ const GenreStaticList = () => {
       id: 1,
       image_url:
         "https://i.pinimg.com/564x/ba/37/1c/ba371c38022a638ddc7a19b34148dfe4.jpg",
-      name: "Lançamentos",
+      name: "Minhas Músicas",
     },
     {
       id: 2,
