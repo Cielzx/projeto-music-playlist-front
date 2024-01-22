@@ -1,8 +1,9 @@
 "use client";
 import Loading from "@/app/components/Loading";
+import { useMusic, useUser } from "@/hook";
 import { musicData } from "@/schemas/music.schema";
 import api from "@/services/api";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { AiOutlinePlayCircle } from "react-icons/ai";
@@ -13,8 +14,11 @@ interface iGenre {
 }
 
 const GenreStaticList = () => {
-  const [music, setMusic] = useState<musicData[]>([]);
   const [genresCount, setGenresCount] = useState<iGenre[]>([]);
+  const { user, getUser } = useUser();
+  const { historic, getUserHistoric } = useMusic();
+
+  const pathname = usePathname();
 
   const images = [
     {
@@ -22,24 +26,28 @@ const GenreStaticList = () => {
       image_url:
         "https://i.pinimg.com/564x/ba/37/1c/ba371c38022a638ddc7a19b34148dfe4.jpg",
       name: "Minhas Músicas",
+      real_name: "YourPlaylist",
     },
     {
       id: 2,
       image_url:
         "https://img.freepik.com/fotos-gratis/mulher-caucasiana-feliz-ouvindo-musica-com-fones-de-ouvido-se-divertindo-em-pe-no-fundo-rosa-morena-fechou-os-olhos-e-segurou-o-telefone-nas-maos_197531-30195.jpg?w=740&t=st=1689784336~exp=1689784936~hmac=3304e40df4b435a12622dc497edf3803edc7a9ae16bd5aa6627e08b12a14944d",
       name: "Historico",
+      real_name: "Historic",
     },
     {
       id: 3,
       image_url:
         "https://img.freepik.com/fotos-gratis/mulher-jovem-com-corte-de-cabelo-afro-com-fones-de-ouvido-amarelos_273609-23050.jpg?w=900&t=st=1689785041~exp=1689785641~hmac=1484e6459a7c96cefa122d2920954555e8027cf620d24fd2b5def3c464a87317",
       name: "Pop",
+      real_name: "Pop",
     },
     {
       id: 4,
       image_url:
         "https://img.freepik.com/fotos-gratis/homem-sorridente-de-tiro-medio-usando-fones-de-ouvido_23-2149480753.jpg?w=900&t=st=1689784870~exp=1689785470~hmac=dfa1116a5f646e6823b2b2623b52d688619544e12dcc53236889c566e318679a",
       name: "Rap",
+      real_name: "Rap",
     },
   ];
 
@@ -85,7 +93,7 @@ const GenreStaticList = () => {
     return router.push(`/playlist/${genre}`);
   };
 
-  if (!genresCount) {
+  if (!genresCount || !user || !historic) {
     return (
       <>
         <Loading />
@@ -93,36 +101,30 @@ const GenreStaticList = () => {
     );
   }
 
-  const teste = (item: string) => {
-    const countTest = genresCount.find((genre) => {
-      if (genre.genre === item) {
-        return genre.genre;
-      } else {
-        return 0;
-      }
-    });
+  const handleTracksCount = (name: string) => {
+    if (name === "Minhas Músicas") {
+      return user.music.length;
+    } else if (name === "Historico") {
+      return historic.length;
+    }
 
-    return countTest?.count;
+    const genreInfo = genresCount.find((genre) => genre.genre === name);
+
+    return genreInfo?.count;
   };
 
   useEffect(() => {
     getMusicGenre();
+    getUserHistoric();
   }, []);
-
-  const teste2 = {
-    name: "Pop",
-  };
 
   return (
     <ul className="flex gap-8 max-[920px]:flex-wrap max-[920px]:gap-4">
       {images.map((item) => {
-        const genreInfo = genresCount.find(
-          (genre) => genre.genre === item.name
-        );
         return (
           <li
             key={item.id}
-            onClick={() => handleMusicGenre(item.name)}
+            onClick={() => handleMusicGenre(item.real_name)}
             className="w-[23%] h-[500px] rounded-xl text-white flex flex-col justify-between   bg-center bg-cover max-[920px]:w-[47%] max-[920px]:h-[300px] cursor-pointer "
             style={{
               background: `url(${item.image_url})`,
@@ -132,7 +134,7 @@ const GenreStaticList = () => {
           >
             <div className="w-full p-2">
               <span className="font-semibold text-black w-[60px] border bg-white rounded-md border-blue-300 p-1 opacity-70">
-                {genreInfo ? `${genreInfo.count}` : 0} tracks
+                {handleTracksCount(item.name)} tracks
               </span>
             </div>
 

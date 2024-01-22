@@ -192,7 +192,7 @@ export const MusicProvider = ({ children }: musicProviderProp) => {
   const createHistoric = async (data: HistoricData) => {
     try {
       const response = await api.post(`historic`, data);
-      console.log(response.data);
+      getUserHistoric();
     } catch (error) {
       console.log(error);
     }

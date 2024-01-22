@@ -2,39 +2,34 @@
 import { usePlayer } from "@/context/playerContext";
 import { useMusic, useUser } from "@/hook";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Tooltip } from "@chakra-ui/react";
+import Loading from "@/app/components/Loading";
+import { CombinedData, musicData } from "@/schemas/music.schema";
+import { HistoricData } from "@/context/musicContext";
 
 interface cardProp {
-  genre: string;
+  setCurrent: Dispatch<SetStateAction<CombinedData>>;
+  userMusic?: [];
 }
 
-const PlaylistCard = ({ genre }: cardProp) => {
+const PlaylistCard = ({ setCurrent }: cardProp) => {
   const { getMusic, music, getUserHistoric, historic, deleteHistoric } =
     useMusic();
-  const { user } = useUser();
+  const { user, getUser } = useUser();
   const { setCurrentMusic, currentMusic, setPlaylist, playList } = usePlayer();
   const playing = currentMusic.music_url;
 
-  const audioRef = useRef<HTMLAudioElement>();
-
   const pathname = usePathname();
   useEffect(() => {
-    getMusic(genre);
+    getUser();
     getUserHistoric();
-
-    if (pathname === "/playslit/Historico") {
-      setPlaylist(historic);
-    }
-
-    // setPlaylist(music);
-
-    // console.log(playList);bv
+    historic.map((item) => setCurrent(item));
   }, [pathname]);
 
   return (
     <>
-      {pathname === "/playlist/Historico" ? (
+      {pathname === "/playlist/Historic" ? (
         <>
           {historic.length === 0 ? (
             <>

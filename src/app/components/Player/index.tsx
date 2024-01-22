@@ -7,12 +7,11 @@ import {
   TbPlayerPause,
   TbPlayerSkipBack,
   TbPlayerSkipForward,
-  TbPlayerStop,
 } from "react-icons/tb";
-import $ from "jquery";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import Image from "next/image";
 import { usePlayer } from "@/context/playerContext";
+import { useMusic } from "@/hook";
 
 const secondsToMinutes = (sec: number | undefined) => {
   if (!sec) return "00:00";
@@ -27,9 +26,10 @@ const secondsToMinutes = (sec: number | undefined) => {
   );
 };
 
-const Player = () => {
+const Player = ({ onClose }: any) => {
   const audioRef = useRef<HTMLAudioElement>();
-  const { currentMusic, setCurrentMusic, playList } = usePlayer();
+  const { music } = useMusic();
+  const { currentMusic, setCurrentMusic, playList, setPlaylist } = usePlayer();
 
   useEffect(() => {
     audioRef.current = new Audio(currentMusic.music_url);
@@ -63,17 +63,10 @@ const Player = () => {
       });
     });
 
-    console.log(playList);
-
     return () => {
       audioRef.current?.pause();
     };
   }, [currentMusic.music_url]);
-
-  // $("#music-bar").on("click", function () {
-  //   console.log("testando jquery");
-  //   // $(this).hide();
-  // });
 
   const skipNext = (music_url: string) => {
     const musicIndex = playList.findIndex((m) => m.music_url === music_url);
@@ -94,6 +87,9 @@ const Player = () => {
       setCurrentMusic(playList[musicIndex - 1]);
     }
   };
+  useEffect(() => {
+    setPlaylist(music);
+  }, []);
 
   return (
     <div className="fixed w-screen bottom-0 inset-x-0 h-20">
@@ -107,7 +103,7 @@ const Player = () => {
                   height={64}
                   className="w-20 h-16"
                   src={currentMusic.cover_image}
-                  alt={currentMusic.name}
+                  alt={currentMusic.artist}
                 />
               ) : (
                 <div className="bg-pink-500 text-gray-100 justify-center items-center text-2xl rounded-lg flex w-full h-full">
@@ -185,6 +181,8 @@ const Player = () => {
               </span>
             </div>
           </div>
+
+          <button onClick={onClose}>Fechar o player</button>
         </div>
       </div>
     </div>

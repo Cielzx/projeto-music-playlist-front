@@ -26,6 +26,8 @@ export interface CurrentHistoricType extends HistoricData {
   isPlaying?: boolean;
 }
 
+export type CombinedData = musicData | HistoricData;
+
 export type PlayerContextType = {
   currentMusic: CurrentMusicType;
   setCurrentMusic: (cm: Partial<CurrentMusicType>, replace?: boolean) => void;

@@ -61,7 +61,7 @@ const UploadProfileImageModal = ({ isOpen, onClose }: modalProps) => {
                   <div className="flex flex-col items-center pt-5 pb-6 w-full h-full gap-2">
                     <FaImage className="fill-gray-200 w-24 h-20 m-4" />
                     <p className="text-3xl max-[920px]:text-xl">
-                      Arrasta e solte a capa aqui
+                      Arrasta e solte a imagem aqui
                     </p>
                     <p className="text-3xl mt-4 max-[920px]:text-xl">- OU -</p>
                     <button
@@ -77,7 +77,7 @@ const UploadProfileImageModal = ({ isOpen, onClose }: modalProps) => {
                     <div className=" w-[97%] flex items-center justify-end max-[920px]:justify-center">
                       <div className="flex flex-row gap-2 ">
                         <button
-                          className="user-form-button w-64 text-xl my-8"
+                          className="user-form-button w-64 text-xl my-8 z-10"
                           onClick={(e) => {
                             e.preventDefault();
                             onSubFunction();

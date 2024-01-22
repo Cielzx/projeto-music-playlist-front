@@ -19,14 +19,12 @@ const YourMusicList = ({ music }: MusicListProps) => {
   const { setCurrentMusic, currentMusic, setPlaylist } = usePlayer();
   const pathname = usePathname();
   const router = useRouter();
-  const playing = currentMusic.music_url;
-  const audioRef = useRef<HTMLAudioElement>();
 
   useEffect(() => {
     setPlaylist(music);
 
     getMusic();
-  }, []);
+  }, [music]);
 
   const handleMusicId = (id: string) => {
     return router.push(`/dashBoard/${id}`);

@@ -8,13 +8,14 @@ import {
 
 import { ReactNode, createContext, useContext, useState } from "react";
 import { HistoricData } from "./musicContext";
+import { DndContext } from "@dnd-kit/core";
 
 interface Props {
   children: ReactNode;
 }
 
 interface PlayerProviderData {
-  currentMusic: CurrentMusicType | HistoricData;
+  currentMusic: CurrentMusicType;
   setCurrentMusic: (cm: Partial<CurrentMusicType>, replace?: boolean) => void;
   playList: musicData[] | HistoricData[];
   setPlaylist: (data: musicData[] | HistoricData[]) => void;
@@ -47,16 +48,14 @@ const PlayerContext = createContext<PlayerProviderData>(
 
 export const PlayerProvider = ({ children }: Props) => {
   const [musics, setMusics] = useState<musicData[] | HistoricData[]>([]);
-  const [current, setCurrent] = useState<CurrentMusicType | HistoricData>(
-    defaultMusic
-  );
+  const [current, setCurrent] = useState<CurrentMusicType>(defaultMusic);
 
   const setCurrentMusic = (
-    music: Partial<CurrentMusicType | HistoricData>,
+    music: Partial<CurrentMusicType>,
     replace = false
   ) => {
     if (replace && music.music_url !== current.music_url) {
-      setCurrent(music as CurrentMusicType | HistoricData);
+      setCurrent(music as CurrentMusicType);
     } else {
       setCurrent((prev) => ({ ...prev, ...music }));
     }

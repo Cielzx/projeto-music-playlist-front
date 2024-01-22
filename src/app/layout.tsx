@@ -8,6 +8,7 @@ import { MusicProvider } from "@/context/musicContext";
 import { PlayerProvider } from "@/context/playerContext";
 import { UserProvider } from "@/context/userContext";
 import ToastProvider from "@/context/ToastContext";
+import { DndContext } from "@dnd-kit/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
