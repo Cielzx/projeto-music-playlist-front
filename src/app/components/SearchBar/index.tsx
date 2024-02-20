@@ -34,6 +34,12 @@ const SearchBar = ({ songs }: SearchProp) => {
     router.push(`/dashBoard/${id}`);
   };
 
+  const genres = [
+    { id: 1, genre: "Rap" },
+    { id: 2, genre: "Pop" },
+    { id: 3, genre: "Rock" },
+  ];
+
   return (
     <div className="flex w-[100%] max-[920px]:gap-2 items-center">
       <div
@@ -48,17 +54,17 @@ const SearchBar = ({ songs }: SearchProp) => {
           <AiOutlineSearch className="text-3xl" />
         </div>
 
-        <div className="w-[69%]">
-          <input
-            placeholder="Pesquisar"
-            className="w-full bg-transparent placeholder-white outline-none rounded-full text-white text-start"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+        <div className="w-full flex ">
+          <div className="w-[69%]">
+            <input
+              placeholder="Pesquisar"
+              className="w-full bg-transparent placeholder-white outline-none rounded-full text-white text-start"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
 
-        {filteredSongs.length > 0 ? (
-          <>
-            <div className="w-full h-[400px] bg-[#053B89] bg-opacity-60  relative top-[227px] border-2 border-blue-300 p-4 rounded-lg right-[28rem]">
+          {filteredSongs.length > 0 ? (
+            <div className="w-full  bg-[#053B89] bg-opacity-60  z-10  border-2 border-blue-300 p-4 rounded-lg right-[28rem]">
               <ul className="w-full h-full overflow-auto flex flex-col gap-6">
                 {filteredSongs.map((item) => (
                   <li
@@ -78,27 +84,26 @@ const SearchBar = ({ songs }: SearchProp) => {
                 ))}
               </ul>
             </div>
-          </>
-        ) : (
-          <></>
-        )}
-
-        <div className="flex gap-4 max-[920px]:hidden">
-          <div className="w-20 h-8 bg-opacity-0 border border-1 border-blue-300 rounded-lg flex justify-center items-center">
-            <span className="">Minimal</span>
-          </div>
-          <div className="w-20 h-8 bg-opacity-0 border border-1 border-blue-300 rounded-lg flex justify-center items-center">
-            <span className="">Pop</span>
-          </div>
-          <div className="w-20 h-8 bg-opacity-0 border border-1 border-blue-300 rounded-lg flex justify-center items-center">
-            <span className="">Rock</span>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
 
-        {/* <button className="flex gap-2 justify-center items-center h-full">
-          <BsFilterLeft className="text-3xl" />
-          Filters
-        </button> */}
+        <div className="flex gap-4 max-[920px]:hidden">
+          {genres.map((item) => (
+            <div
+              key={item.id}
+              className="w-20 h-8 bg-opacity-0 border border-1 border-blue-300 rounded-lg flex justify-center items-center"
+            >
+              <span
+                onClick={() => router.push(`/playlist/${item.genre}`)}
+                className="cursor-pointer"
+              >
+                {item.genre}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
